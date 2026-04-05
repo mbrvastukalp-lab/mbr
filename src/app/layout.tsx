@@ -5,6 +5,10 @@ import Providers from './providers';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import StickyContactButtons from "@/components/StickyContactButtons";
+import StructuredData from "@/components/StructuredData";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'MBR Vastukalp - Construction Services in Mumbai',
-    description: 'Expert construction and renovation services with 25+ years of experience in Mumbai.',
+    description: 'Expert construction and renovation services with 30+ years of experience in Mumbai.',
     images: ['/logo.png'],
   },
   other: {
@@ -46,10 +50,6 @@ export const metadata: Metadata = {
   },
 };
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import StickyContactButtons from "@/components/StickyContactButtons";
-import StructuredData from "@/components/StructuredData";
 
 export default function RootLayout({
   children,

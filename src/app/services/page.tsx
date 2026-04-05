@@ -63,7 +63,7 @@ const services = [
   {
     icon: Sofa,
     name: "Carpentry & Loose Furniture Work",
-    image: "/service/carpentry.jpg",
+    image: "/service/carpentry.jpeg",
     description: "Fine carpentry services including custom furniture, modular solutions, and decorative woodwork tailored to your specifications.",
     features: [
       "Loose Furniture (Custom)",
