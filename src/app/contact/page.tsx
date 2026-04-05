@@ -1,5 +1,6 @@
+"use client";
+
 import { useState } from "react";
-import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Send, User, MessageSquare, Briefcase } from "lucide-react";
 import { z } from "zod";
-import { useForm, ValidationError } from "@formspree/react";
 import {
   Select,
   SelectContent,
@@ -29,9 +29,9 @@ const contactSchema = z.object({
 type FormData = z.infer<typeof contactSchema>;
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-const Contact = () => {
+export default function ContactPage() {
   const { toast } = useToast();
-  const [state, handleSubmitFormspree] = useForm("mbdppbdj");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -54,8 +54,10 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     setErrors({});
-    // Validate form with Zod first
+
+    // Validate form with Zod
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: FormErrors = {};
@@ -65,35 +67,48 @@ const Contact = () => {
         }
       });
       setErrors(fieldErrors);
+      setIsSubmitting(false);
       return;
     }
 
-    // If valid, submit to Formspree
-    const response = await handleSubmitFormspree(formData);
-    
-    if (response.body && 'errors' in response.body) {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        subject: "",
+        message: "",
+      });
+
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: "Message Sent Successfully!",
+        description: "We'll get back to you within 24 hours.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Submission Error",
+        description: error.message || "Failed to send message. Please try again.",
         variant: "destructive",
       });
-      return;
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      subject: "",
-      message: "",
-    });
-
-    toast({
-      title: "Message Sent Successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
   };
 
   const contactInfo = [
@@ -103,35 +118,32 @@ const Contact = () => {
     { icon: Clock, title: "Working Hours", content: ["Mon - Sat: 9AM - 7PM", "Sunday: Closed"] },
   ];
 
-  if (isSubmitted || state.succeeded) {
+  if (isSubmitted) {
     return (
-      <Layout>
-        <section className="py-20 min-h-[80vh] flex items-center bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-xl mx-auto text-center">
-              <div className="w-24 h-24 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
-                <CheckCircle className="w-12 h-12 text-secondary" />
-              </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 animate-fade-in-up">
-                Thank You!
-              </h1>
-              <p className="text-muted-foreground mb-8 animate-fade-in-up delay-100">
-                Your message has been received. Our team will contact you within 24 hours
-                to discuss your project requirements.
-              </p>
-              <Button onClick={() => setIsSubmitted(false)} variant="outline" size="lg" className="animate-fade-in-up delay-200">
-                Send Another Message
-              </Button>
+      <section className="py-20 flex-1 flex items-center bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-xl mx-auto text-center">
+            <div className="w-24 h-24 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-8 animate-scale-in">
+              <CheckCircle className="w-12 h-12 text-secondary" />
             </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Thank You!
+            </h1>
+            <p className="text-muted-foreground mb-8">
+              Your message has been received. Our team will contact you within 24 hours
+              to discuss your project requirements.
+            </p>
+            <Button onClick={() => setIsSubmitted(false)} variant="outline" size="lg">
+              Send Another Message
+            </Button>
           </div>
-        </section>
-      </Layout>
+        </div>
+      </section>
     );
   }
 
   return (
-    <Layout>
-      {/* Hero Section */}
+    <>
       <section className="py-20 bg-gradient-hero text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute inset-0" style={{
@@ -140,29 +152,27 @@ const Contact = () => {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">Contact Us</h1>
-            <p className="text-xl text-primary-foreground/80 animate-fade-in-up delay-100">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+            <p className="text-xl text-primary-foreground/80">
               Your vision, our expertise. Let's start building something great together.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className="py-20 bg-background relative z-10">
+      <section className="py-20 bg-background relative z-10 flex-1">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-12 gap-12">
             
-            {/* Left Column: Contact Info & Map */}
             <div className="lg:col-span-5 space-y-12">
-              <div className="space-y-6 animate-fade-in-up delay-200">
+              <div className="space-y-6">
                 <h2 className="text-3xl font-bold text-foreground">Get in Touch</h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
                   Have a project in mind or need expert maintenance? Reach out to our specialized team today.
                 </p>
               </div>
 
-              <div className="grid gap-6 animate-fade-in-up delay-300">
+              <div className="grid gap-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex gap-4 p-6 bg-card rounded-2xl shadow-soft border border-border group hover:border-secondary/30 transition-all duration-300">
                     <div className="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -177,20 +187,16 @@ const Contact = () => {
                   </div>
                 ))}
               </div>
-
             </div>
 
-            {/* Right Column: Premium Form */}
             <div className="lg:col-span-7">
-              <div className="bg-card p-8 md:p-10 rounded-3xl shadow-strong border border-border animate-fade-in-up delay-150 relative">
-                {/* Decorative element */}
+              <div className="bg-card p-8 md:p-10 rounded-3xl shadow-strong border border-border relative">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-secondary/5 rounded-full blur-2xl -z-10" />
                 
                 <h2 className="text-2xl font-bold text-foreground mb-8 text-center lg:text-left">Send Inquiries</h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid md:grid-cols-2 gap-8">
-                    {/* Name */}
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-foreground/70 ml-1">Full Name *</Label>
                       <div className="relative">
@@ -201,13 +207,13 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="Your full name"
+                          disabled={isSubmitting}
                           className={`pl-10 h-12 rounded-xl focus:ring-secondary ${errors.name ? "border-destructive ring-1 ring-destructive" : "border-border"}`}
                         />
                       </div>
                       {errors.name && <p className="text-xs text-destructive ml-1">{errors.name}</p>}
                     </div>
 
-                    {/* Email */}
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-foreground/70 ml-1">Email Address *</Label>
                       <div className="relative">
@@ -219,6 +225,7 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="your@email.com"
+                          disabled={isSubmitting}
                           className={`pl-10 h-12 rounded-xl focus:ring-secondary ${errors.email ? "border-destructive ring-1 ring-destructive" : "border-border"}`}
                         />
                       </div>
@@ -227,7 +234,6 @@ const Contact = () => {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-8">
-                    {/* Phone */}
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-foreground/70 ml-1">Phone Number *</Label>
                       <div className="relative">
@@ -238,13 +244,13 @@ const Contact = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+91 98765 43210"
+                          disabled={isSubmitting}
                           className={`pl-10 h-12 rounded-xl focus:ring-secondary ${errors.phone ? "border-destructive ring-1 ring-destructive" : "border-border"}`}
                         />
                       </div>
                       {errors.phone && <p className="text-xs text-destructive ml-1">{errors.phone}</p>}
                     </div>
 
-                    {/* Service Selection */}
                     <div className="space-y-2">
                       <Label htmlFor="service" className="text-foreground/70 ml-1">Service Interest *</Label>
                       <div className="relative">
@@ -255,6 +261,7 @@ const Contact = () => {
                             if (errors.service) setErrors(prev => ({ ...prev, service: undefined }));
                           }}
                           value={formData.service}
+                          disabled={isSubmitting}
                         >
                           <SelectTrigger className={`pl-10 h-12 rounded-xl focus:ring-secondary relative ${errors.service ? "border-destructive ring-1 ring-destructive" : "border-border"}`}>
                             <SelectValue placeholder="Select a service" />
@@ -272,7 +279,6 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  {/* Subject */}
                   <div className="space-y-2">
                     <Label htmlFor="subject" className="text-foreground/70 ml-1">Subject *</Label>
                     <Input
@@ -281,12 +287,12 @@ const Contact = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="Brief summary of your project..."
+                      disabled={isSubmitting}
                       className={`h-12 rounded-xl focus:ring-secondary ${errors.subject ? "border-destructive ring-1 ring-destructive" : "border-border"}`}
                     />
                     {errors.subject && <p className="text-xs text-destructive ml-1">{errors.subject}</p>}
                   </div>
 
-                  {/* Message */}
                   <div className="space-y-2">
                     <Label htmlFor="message" className="text-foreground/70 ml-1">Your Detailed Message *</Label>
                     <div className="relative">
@@ -298,15 +304,22 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="Tell us everything about your requirements..."
                         rows={6}
+                        disabled={isSubmitting}
                         className={`pl-10 rounded-2xl focus:ring-secondary ${errors.message ? "border-destructive ring-1 ring-destructive" : "border-border"}`}
                       />
                     </div>
                     {errors.message && <p className="text-xs text-destructive ml-1">{errors.message}</p>}
                   </div>
 
-                  <Button type="submit" variant="hero" size="xl" className="w-full rounded-2xl shadow-accent group" disabled={state.submitting}>
-                    {state.submitting ? (
-                      "Processing..."
+                  <Button type="submit" variant="hero" size="xl" className="w-full rounded-2xl shadow-accent group" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </span>
                     ) : (
                       <>
                         Send Message
@@ -323,8 +336,7 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Map Block - Full Width Horizontal */}
-          <div className="mt-12 rounded-3xl overflow-hidden shadow-strong border border-border h-[450px] animate-fade-in-up delay-400">
+          <div className="mt-12 rounded-3xl overflow-hidden shadow-strong border border-border h-[450px]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d301.70122566539334!2d72.90475346206789!3d19.024776402791264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c5f155ae4869%3A0x601e5b86abc19b58!2s2WF3%2BRXV%2C%20Vishnu%20Nagar%2C%20Chembur%2C%20Mumbai%2C%20Maharashtra%20400074!5e1!3m2!1sen!2sin!4v1769415520150!5m2!1sen!2sin"
               width="100%"
@@ -338,8 +350,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
-};
-
-export default Contact;
+}

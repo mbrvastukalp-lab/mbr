@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -9,9 +10,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/logo.png"
                 alt="MBR Vastukalp Logo"
+                width={64}
+                height={64}
                 className="h-14 sm:h-16 w-auto object-contain drop-shadow-lg"
                 style={{ filter: 'drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2))' }}
               />
@@ -29,7 +32,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-primary-foreground/80 leading-relaxed">
-              Over 25 years of excellence in construction, renovation, and maintenance. Building trust, one project at a time.
+              Over 30 years of excellence in construction, renovation, and maintenance. Building trust, one project at a time.
             </p>
             {/* Social Media Links */}
             <div className="flex gap-4 mt-4">
@@ -76,7 +79,7 @@ const Footer = () => {
               {["Home", "About", "Services", "Founders", "Contact Us"].map((link) => (
                 <li key={link}>
                   <Link
-                    to={link === "Home" ? "/" : `/${link.toLowerCase().replace(" ", "-").replace("-us", "")}`}
+                    href={link === "Home" ? "/" : `/${link.toLowerCase().replace(" ", "-").replace("-us", "")}`}
                     className="text-primary-foreground/80 hover:text-secondary transition-colors"
                   >
                     {link}
@@ -93,7 +96,7 @@ const Footer = () => {
               {["Civil Structure", "Electrical", "Plumbing", "Painting", "HVAC"].map((service) => (
                 <li key={service}>
                   <Link
-                    to="/services"
+                    href="/services"
                     className="text-primary-foreground/80 hover:text-secondary transition-colors"
                   >
                     {service}
@@ -137,7 +140,7 @@ const Footer = () => {
               © {new Date().getFullYear()} MBR Vastukalp. All rights reserved.
             </p>
             <p className="text-primary-foreground/80 text-sm">
-              25+ Years of Excellence in Construction
+              30+ Years of Excellence in Construction
             </p>
           </div>
         </div>
@@ -147,3 +150,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

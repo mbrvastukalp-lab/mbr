@@ -1,5 +1,3 @@
-import { Helmet } from 'react-helmet-async';
-
 const StructuredData = () => {
     const organizationSchema = {
         "@context": "https://schema.org",
@@ -8,7 +6,7 @@ const StructuredData = () => {
         "alternateName": "MBR Construction Services",
         "url": "https://mbrvastukalp.com",
         "logo": "https://mbrvastukalp.com/logo.png",
-        "description": "Expert construction, renovation, and maintenance services in Mumbai with 25+ years of experience",
+        "description": "Expert construction, renovation, and maintenance services in Mumbai with 30+ years of experience",
         "email": "mbrvastukalp@gmail.com",
         "telephone": ["+91-982128-2719", "+91-86198-63180"],
         "address": {
@@ -29,9 +27,10 @@ const StructuredData = () => {
         "founder": [
             {
                 "@type": "Person",
-                "name": "Mahender Rajak",
+                "name": "Mahendra Rajak",
                 "jobTitle": "Founder & CEO"
             },
+
             {
                 "@type": "Person",
                 "name": "Er. Vikas Kumar",
@@ -152,18 +151,22 @@ const StructuredData = () => {
     };
 
     return (
-        <Helmet>
-            <script type="application/ld+json">
-                {JSON.stringify(organizationSchema)}
-            </script>
-            <script type="application/ld+json">
-                {JSON.stringify(localBusinessSchema)}
-            </script>
-            <script type="application/ld+json">
-                {JSON.stringify(servicesSchema)}
-            </script>
-        </Helmet>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+            />
+        </>
     );
 };
 
 export default StructuredData;
+

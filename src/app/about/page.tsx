@@ -1,11 +1,11 @@
-import Layout from "@/components/Layout";
 import { Target, Eye, Award, Users, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 const milestones = [
-  { year: "1999", title: "Company Founded", desc: "Started with a vision to transform construction industry" },
+  { year: "1996", title: "Company Founded", desc: "Started with a vision to transform construction industry" },
   { year: "2005", title: "1000+ Projects", desc: "Milestone of completing over 1000 successful projects" },
   { year: "2012", title: "Expanded Services", desc: "Added HVAC and specialized renovation services" },
-  { year: "2020", title: "25K+ Happy Clients", desc: "Serving thousands of satisfied customers across India" },
+  { year: "2020", title: "30K+ Happy Clients", desc: "Serving thousands of satisfied customers across India" },
   { year: "2024", title: "Industry Leader", desc: "Recognized as a leading construction and maintenance firm" },
 ];
 
@@ -16,16 +16,21 @@ const values = [
   { icon: Target, title: "Innovation", desc: "Embracing modern techniques and technologies" },
 ];
 
-const About = () => {
+export const metadata = {
+  title: 'About MBR Vastukalp - 30+ Years of Excellence in Construction',
+  description: 'Learn about MBR Vastukalp, a trusted name in Mumbai construction since 1996. Our story, values, and commitment to quality.',
+};
+
+export default function AboutPage() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-hero text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">About MBR Vastukalp</h1>
             <p className="text-xl text-primary-foreground/80">
-              Your Vision, Our Expertise. Over 25 years of transforming visions into reality since 1999.
+              Your Vision, Our Expertise. Over 30 years of transforming visions into reality since 1996.
             </p>
           </div>
         </div>
@@ -39,13 +44,13 @@ const About = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  MBR Vastukalp was founded in 1999 with a simple yet powerful vision: to provide
+                  MBR Vastukalp was founded in 1996 with a simple yet powerful vision: to provide
                   exceptional construction and renovation services that stand the test of time. What
                   started as a small family business has grown into one of the most trusted names in
                   the construction industry.
                 </p>
                 <p>
-                  Over the past 25 years, we have completed thousands of projects ranging from
+                  Over the past 30 years, we have completed thousands of projects ranging from
                   residential renovations to large-scale commercial constructions. Our journey has
                   been marked by an unwavering commitment to quality, integrity, and customer satisfaction.
                 </p>
@@ -57,10 +62,13 @@ const About = () => {
               </div>
             </div>
             <div className="relative">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop"
                 alt="MBR Vastukalp construction team working on a project"
+                width={800}
+                height={600}
                 className="rounded-2xl shadow-strong w-full h-auto object-cover"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl"></div>
             </div>
@@ -127,7 +135,7 @@ const About = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Journey</h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto">
-              Key milestones in our 25+ year history
+              Key milestones in our 30+ year history
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -152,8 +160,6 @@ const About = () => {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
-};
-
-export default About;
+}

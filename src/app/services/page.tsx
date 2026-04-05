@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import Layout from "@/components/Layout";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Building, Trash2, Zap, Droplet, Hammer, Wrench, PaintBucket, Wind, ArrowRight, CheckCircle, Layers, Sofa, Paintbrush, Sparkles, Home } from "lucide-react";
+import Image from "next/image";
 
 const services = [
   {
@@ -185,9 +185,14 @@ const services = [
   },
 ];
 
-const Services = () => {
+export const metadata = {
+  title: 'Our Services - MBR Vastukalp | Construction, Renovation & Maintenance',
+  description: 'Explore our wide range of services including civil structure repair, demolition, electrical, plumbing, painting, HVAC, and more in Mumbai.',
+};
+
+export default function ServicesPage() {
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-hero text-primary-foreground">
         <div className="container mx-auto px-4">
@@ -207,7 +212,7 @@ const Services = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="grid md:grid-cols-2 gap-8 items-center"
+                className="grid md:grid-cols-2 gap-8 items-center py-12 border-b border-border last:border-0"
               >
                 <div className={index % 2 === 1 ? "md:order-2" : ""}>
                   <div className="flex items-center gap-4 mb-4">
@@ -217,15 +222,15 @@ const Services = () => {
                     <h2 className="text-2xl md:text-3xl font-bold text-foreground">{service.name}</h2>
                   </div>
                   <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                     {service.features.map((feature, fIndex) => (
                       <li key={fIndex} className="flex items-center gap-3">
                         <CheckCircle className="w-5 h-5 text-secondary flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
+                        <span className="text-foreground text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     <Button variant="outline" className="group">
                       Get Quote
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -233,13 +238,13 @@ const Services = () => {
                   </Link>
                 </div>
                 <div className={`rounded-2xl overflow-hidden shadow-xl ${index % 2 === 1 ? "md:order-1" : ""}`}>
-                  <div className="w-full aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
-                    <img
+                  <div className="relative w-full aspect-[4/3] md:aspect-square lg:aspect-[4/3]">
+                    <Image
                       src={service.image}
                       alt={`${service.name} - MBR Vastukalp construction services`}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover transform hover:scale-105 transition-transform duration-500"
                       loading="lazy"
-                      decoding="async"
                     />
                   </div>
                 </div>
@@ -258,15 +263,13 @@ const Services = () => {
           <p className="text-secondary-foreground/90 mb-8 max-w-2xl mx-auto">
             Our team of experts is ready to discuss your specific requirements and provide tailored solutions.
           </p>
-          <Link to="/contact">
+          <Link href="/contact">
             <Button variant="default" size="xl">
               Contact Us Today
             </Button>
           </Link>
         </div>
       </section>
-    </Layout>
+    </>
   );
-};
-
-export default Services;
+}

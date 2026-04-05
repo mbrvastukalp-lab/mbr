@@ -1,8 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, Award, Users, Wrench, Zap, Droplet, PaintBucket, Wind, Hammer, Building, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
-import Layout from "@/components/Layout";
 
 const services = [
   { icon: Building, name: "Civil Structure Repairing", desc: "Expert structural repairs and reinforcement" },
@@ -16,7 +17,7 @@ const services = [
 ];
 
 const stats = [
-  { value: "25+", label: "Years Experience" },
+  { value: "30+", label: "Years Experience" },
   { value: "5000+", label: "Projects Completed" },
   { value: "3000+", label: "Happy Clients" },
   { value: "95%+", label: "Retention Rate" },
@@ -54,7 +55,7 @@ const testimonials = [
   }
 ];
 
-const Index = () => {
+export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   // Auto-rotate testimonials every 5 seconds
@@ -74,10 +75,10 @@ const Index = () => {
   };
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image - Using a div with bg-image for this specific style, or we could use next/image with fill */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -99,7 +100,7 @@ const Index = () => {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary px-4 py-2 rounded-full mb-6 animate-fade-in-up">
               <Award className="w-4 h-4" />
-              <span className="text-sm font-medium">25+ Years of Excellence</span>
+              <span className="text-sm font-medium">30+ Years of Excellence</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 animate-fade-in-up delay-100 leading-tight">
@@ -109,17 +110,18 @@ const Index = () => {
 
             <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-in-up delay-200 leading-relaxed max-w-2xl">
               MBR Vastukalp is your trusted partner for construction, renovation, and maintenance.
-              With over two decades of experience, we transform visions into reality with quality and integrity.
+              With over three decades of experience, we transform visions into reality with quality and integrity.
             </p>
 
+
             <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
-              <Link to="/contact">
+              <Link href="/contact">
                 <Button variant="hero" size="xl" className="group">
                   Get Free Consultation
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link to="/services">
+              <Link href="/services">
                 <Button variant="navyOutline" size="xl">
                   Our Services
                 </Button>
@@ -162,7 +164,7 @@ const Index = () => {
             {services.map((service, index) => (
               <Link
                 key={index}
-                to="/services"
+                href="/services"
                 className="group bg-card p-6 rounded-xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-2"
               >
                 <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-secondary group-hover:scale-110 transition-all duration-300">
@@ -175,7 +177,7 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/services">
+            <Link href="/services">
               <Button variant="outline" size="lg" className="group">
                 View All Services
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -194,7 +196,7 @@ const Index = () => {
                 Why Choose <span className="text-secondary">MBR Vastukalp?</span>
               </h2>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                For over 25 years, we have been the cornerstone of trust and quality in the construction industry.
+                For over 30 years, we have been the cornerstone of trust and quality in the construction industry.
                 Our commitment to excellence, combined with our experienced team, ensures every project
                 exceeds expectations.
               </p>
@@ -218,7 +220,7 @@ const Index = () => {
                 <p className="text-primary-foreground/80 mb-6">
                   Get a free consultation and quote for your construction or renovation needs.
                 </p>
-                <Link to="/contact">
+                <Link href="/contact">
                   <Button variant="hero" size="lg" className="w-full">
                     Contact Us Today
                   </Button>
@@ -319,15 +321,13 @@ const Index = () => {
           <p className="text-secondary-foreground/90 mb-8 max-w-2xl mx-auto">
             Contact us today for a free consultation and take the first step towards your dream project.
           </p>
-          <Link to="/contact">
+          <Link href="/contact">
             <Button variant="default" size="xl">
               Get Started Now
             </Button>
           </Link>
         </div>
       </section>
-    </Layout>
+    </>
   );
-};
-
-export default Index;
+}

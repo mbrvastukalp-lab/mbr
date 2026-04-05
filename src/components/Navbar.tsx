@@ -1,7 +1,11 @@
+"use client";
+
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -14,21 +18,24 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-            <img
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+            <Image
               src="/logo.png"
               alt="MBR Vastukalp Logo"
+              width={64}
+              height={64}
               className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain group-hover:scale-105 transition-all duration-300 drop-shadow-lg"
               style={{ filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15))' }}
+              priority
             />
             <div className="flex flex-col justify-center">
               <div>
@@ -49,7 +56,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
+                href={link.path}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${isActive(link.path)
                   ? "bg-primary text-primary-foreground"
                   : "text-foreground hover:bg-muted hover:text-primary"
@@ -62,7 +69,7 @@ const Navbar = () => {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:block">
-            <Link to="/contact">
+            <Link href="/contact">
               <Button variant="hero" size="lg">
                 Get Free Quote
               </Button>
@@ -86,7 +93,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
-                  to={link.path}
+                  href={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`px-4 py-3 rounded-lg font-medium transition-all ${isActive(link.path)
                     ? "bg-primary text-primary-foreground"
@@ -96,7 +103,7 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link to="/contact" onClick={() => setIsOpen(false)} className="mt-2">
+              <Link href="/contact" onClick={() => setIsOpen(false)} className="mt-2 text-center block">
                 <Button variant="hero" className="w-full" size="lg">
                   Get Free Quote
                 </Button>
@@ -110,3 +117,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
