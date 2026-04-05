@@ -97,33 +97,33 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-secondary/20 text-secondary px-4 py-2 rounded-full mb-6 animate-fade-in-up">
-              <Award className="w-4 h-4" />
-              <span className="text-sm font-medium">30+ Years of Excellence</span>
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-secondary-foreground px-5 py-2 rounded-full mb-8 animate-fade-in-up shadow-lg">
+              <Award className="w-5 h-5 text-secondary" />
+              <span className="text-sm font-bold tracking-wide uppercase italic">30+ Years of Industrial Excellence</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 animate-fade-in-up delay-100 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-black text-primary-foreground mb-8 animate-fade-in-up delay-100 leading-[1.1] tracking-tighter">
               Building Dreams,<br />
-              <span className="text-secondary">Creating Legacies</span>
+              <span className="text-secondary drop-shadow-sm">Creating Legacies</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 animate-fade-in-up delay-200 leading-relaxed max-w-2xl">
-              MBR Vastukalp is your trusted partner for construction, renovation, and maintenance.
-              With over three decades of experience, we transform visions into reality with quality and integrity.
+            <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 animate-fade-in-up delay-200 leading-relaxed max-w-2xl font-medium">
+              MBR Vastukalp is your premier partner for structural engineering, renovation, and maintenance. 
+              Transforming architectural visions into enduring realities with unparalleled integrity.
             </p>
 
 
-            <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
+            <div className="flex flex-wrap gap-6 animate-fade-in-up delay-300">
               <Link href="/contact">
-                <Button variant="hero" size="xl" className="group">
-                  Get Free Consultation
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <Button variant="hero" size="xl" className="group rounded-2xl px-10 h-16 text-lg shadow-accent hover:shadow-strong transition-all duration-500">
+                  Free Consultation
+                  <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
                 </Button>
               </Link>
               <Link href="/services">
-                <Button variant="navyOutline" size="xl">
-                  Our Services
+                <Button variant="navyOutline" size="xl" className="rounded-2xl px-10 h-16 text-lg border-white/40 hover:bg-white/10 backdrop-blur-sm transition-all duration-500">
+                  Explore Services
                 </Button>
               </Link>
             </div>
@@ -135,14 +135,17 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-card relative -mt-16 z-20">
+      <section className="py-20 relative -mt-24 z-20">
         <div className="container mx-auto px-4">
-          <div className="bg-card rounded-2xl shadow-strong p-8 md:p-12">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <div className="glass rounded-[2rem] shadow-strong p-10 md:p-16 border border-white/40 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-3xl -z-10 rounded-full" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 blur-3xl -z-10 rounded-full" />
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-muted-foreground font-medium">{stat.label}</div>
+                <div key={index} className="text-center group">
+                  <div className="text-4xl md:text-5xl font-black text-navy mb-3 group-hover:scale-110 transition-transform duration-500">{stat.value}</div>
+                  <div className="text-muted-foreground font-bold uppercase tracking-widest text-xs">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -160,18 +163,22 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <Link
                 key={index}
                 href="/services"
-                className="group bg-card p-6 rounded-xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-2"
+                className="group bg-card p-8 rounded-3xl shadow-soft hover:shadow-strong transition-all duration-500 hover:-translate-y-4 border border-border/50 relative overflow-hidden"
               >
-                <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-secondary group-hover:scale-110 transition-all duration-300">
-                  <service.icon className="w-7 h-7 text-secondary group-hover:text-secondary-foreground transition-colors" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -mr-12 -mt-12 transition-all duration-500 group-hover:scale-150" />
+                <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:rotate-6 transition-all duration-500 shadow-sm">
+                  <service.icon className="w-8 h-8 text-secondary group-hover:text-secondary-foreground transition-colors" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-2">{service.name}</h3>
-                <p className="text-sm text-muted-foreground">{service.desc}</p>
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">{service.name}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{service.desc}</p>
+                <div className="mt-6 flex items-center text-primary font-bold text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                  Learn More <ArrowRight className="w-4 h-4 ml-2" />
+                </div>
               </Link>
             ))}
           </div>
