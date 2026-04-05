@@ -6,6 +6,7 @@ const founders = [
     name: "Mr. Mahendra Rajak",
     role: "Founder & Managing Director",
     initial: "MK",
+    image: "/founders/mahendra.png",
     experience: "30+ years",
     description: "With over three decades of experience in the construction industry, Mr. Mahender Rajak founded MBR Vastukalp with a vision to deliver excellence. His expertise in civil engineering and project management has been the cornerstone of the company's success.",
     quote: "Quality is not just a standard; it's a promise we make to every client.",
@@ -19,6 +20,7 @@ const founders = [
     name: "Er. Vikas Kumar",
     role: "Co-Founder & Technical Director",
     initial: "VK",
+    image: "/founders/vikas.png",
     experience: "8+ years",
     description: "Er. Vikas Kumar brings technical excellence and innovation to MBR Vastukalp. His deep understanding of modern construction techniques and materials ensures that every project benefits from the latest industry advancements.",
     quote: "Innovation and tradition must work together to build structures that last generations.",
@@ -58,8 +60,16 @@ const Founders = () => {
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   {/* Profile Card */}
                   <div className="bg-gradient-primary rounded-2xl p-8 text-center">
-                    <div className="w-44 h-44 bg-secondary rounded-xl flex items-center justify-center mx-auto mb-6">
-                      <span className="text-5xl font-bold text-secondary-foreground">{founder.initial}</span>
+                    <div className="w-44 h-44 bg-secondary rounded-xl flex items-center justify-center mx-auto mb-6 overflow-hidden shadow-strong">
+                      {founder.image ? (
+                        <img 
+                          src={founder.image} 
+                          alt={founder.name} 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-5xl font-bold text-secondary-foreground">{founder.initial}</span>
+                      )}
                     </div>
                     <h2 className="text-2xl font-bold text-primary-foreground mb-2">{founder.name}</h2>
                     <p className="text-secondary mb-4">{founder.role}</p>
