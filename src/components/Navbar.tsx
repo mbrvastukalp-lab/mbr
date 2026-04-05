@@ -31,13 +31,12 @@ const Navbar = () => {
               style={{ filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15))' }}
             />
             <div className="flex flex-col justify-center">
-              <div className="w-min">
-                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-foreground leading-none underline whitespace-nowrap tracking-widest">
+              <div>
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-foreground leading-none underline whitespace-nowrap tracking-wide">
                   MBR VASTUKALP
                 </h3>
                 <p
-                  className="text-[0.45rem] sm:text-[0.5rem] md:text-[0.55rem] lg:text-[0.6rem] text-muted-foreground leading-tight w-full tracking-tighter"
-                  style={{ textAlign: 'justify', textAlignLast: 'justify' }}
+                  className="text-[0.45rem] sm:text-[0.5rem] md:text-[0.55rem] lg:text-[0.6rem] text-muted-foreground leading-tight whitespace-nowrap"
                 >
                   Legacy in Every Layer. Trust in Every Project
                 </p>

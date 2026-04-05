@@ -58,8 +58,8 @@ const Founders = () => {
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   {/* Profile Card */}
                   <div className="bg-gradient-primary rounded-2xl p-8 text-center">
-                    <div className="w-32 h-32 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                      <span className="text-4xl font-bold text-secondary-foreground">{founder.initial}</span>
+                    <div className="w-44 h-44 bg-secondary rounded-xl flex items-center justify-center mx-auto mb-6">
+                      <span className="text-5xl font-bold text-secondary-foreground">{founder.initial}</span>
                     </div>
                     <h2 className="text-2xl font-bold text-primary-foreground mb-2">{founder.name}</h2>
                     <p className="text-secondary mb-4">{founder.role}</p>

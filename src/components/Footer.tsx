@@ -16,13 +16,12 @@ const Footer = () => {
                 style={{ filter: 'drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2))' }}
               />
               <div className="flex flex-col justify-center">
-                <div className="w-min">
-                  <h4 className="text-base sm:text-lg md:text-xl font-bold text-primary-foreground leading-none underline whitespace-nowrap tracking-widest">
+                <div>
+                  <h4 className="text-base sm:text-lg md:text-xl font-bold text-primary-foreground leading-none underline whitespace-nowrap tracking-wide">
                     MBR VASTUKALP
                   </h4>
                   <p
-                    className="text-[0.45rem] sm:text-[0.5rem] md:text-[0.55rem] text-primary-foreground/80 leading-tight w-full tracking-tighter"
-                    style={{ textAlign: 'justify', textAlignLast: 'justify' }}
+                    className="text-[0.45rem] sm:text-[0.5rem] md:text-[0.55rem] text-primary-foreground/80 leading-tight whitespace-nowrap"
                   >
                     Legacy in Every Layer. Trust in Every Project
                   </p>
