@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
@@ -107,7 +109,7 @@ const NavigationMenuIndicator = React.forwardRef<
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
-/* eslint-disable react-refresh/only-export-components */
+/*  */
 export {
   navigationMenuTriggerStyle,
   NavigationMenu,

@@ -43,7 +43,7 @@ export default function FoundersPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Founders</h1>
             <p className="text-xl text-primary-foreground/80">
-              Meet the visionaries behind MBR Vastukalp's 30+ years of excellence
+              Meet the visionaries behind MBR Vastukalp&apos;s 30+ years of excellence
             </p>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function FoundersPage() {
                   {/* Quote */}
                   <div className="bg-muted p-6 rounded-xl border-l-4 border-secondary shadow-soft">
                     <Quote className="w-8 h-8 text-secondary/30 mb-4" />
-                    <p className="text-foreground italic text-lg leading-relaxed">"{founder.quote}"</p>
+                    <p className="text-foreground italic text-lg leading-relaxed">&quot;{founder.quote}&quot;</p>
                   </div>
                 </div>
               </div>

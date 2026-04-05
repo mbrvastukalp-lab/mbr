@@ -239,7 +239,7 @@ export default function Home() {
               What Our Clients Say
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Don't just take our word for it - hear from our satisfied clients
+              Don&apos;t just take our word for it - hear from our satisfied clients
             </p>
           </div>
 
@@ -258,7 +258,7 @@ export default function Home() {
 
               {/* Quote */}
               <p className="text-muted-foreground italic mb-8 leading-relaxed text-center text-lg md:text-xl">
-                "{testimonials[currentTestimonial].quote}"
+                &quot;{testimonials[currentTestimonial].quote}&quot;
               </p>
 
               {/* Customer Info */}
@@ -316,7 +316,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-accent">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary-foreground mb-4">
-            Let's Build Something Great Together
+            Let&apos;s Build Something Great Together
           </h2>
           <p className="text-secondary-foreground/90 mb-8 max-w-2xl mx-auto">
             Contact us today for a free consultation and take the first step towards your dream project.
