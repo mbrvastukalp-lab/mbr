@@ -21,7 +21,7 @@ const services = [
   {
     icon: Trash2,
     name: "Demolition",
-    image: "/service/demolition.jpg",
+    image: "/service/demolition.jpeg",
     description: "Safe, efficient, and environmentally responsible demolition services. From selective interior demolition to complete structure removal with proper debris management.",
     features: [
       "Civil Structure Demolition (Slab, Beam, Column, Flooring)",
