@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Send } from "lucide-react";
 import { z } from "zod";
+import { useForm, ValidationError } from "@formspree/react";
 
 // Validation schema
 const contactSchema = z.object({
@@ -22,7 +23,7 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const Contact = () => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, handleSubmitFormspree] = useForm("mbdppbdj");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -45,8 +46,7 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
-
-    // Validate form
+    // Validate form with Zod first
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: FormErrors = {};
@@ -59,51 +59,31 @@ const Contact = () => {
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      // Send form data using FormSubmit (free service)
-      const response = await fetch("https://formsubmit.co/mbrvastukalp@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
-          _captcha: "false", // Disable reCAPTCHA for demo
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-
-      toast({
-        title: "Message Sent Successfully!",
-        description: "We'll get back to you within 24 hours.",
-      });
-    } catch (error) {
-      setIsSubmitting(false);
+    // If valid, submit to Formspree
+    const response = await handleSubmitFormspree(formData);
+    
+    if (response.body && 'errors' in response.body) {
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
+      return;
     }
+
+    setIsSubmitted(true);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    });
+
+    toast({
+      title: "Message Sent Successfully!",
+      description: "We'll get back to you within 24 hours.",
+    });
   };
 
   const contactInfo = [
@@ -113,7 +93,7 @@ const Contact = () => {
     { icon: Clock, title: "Working Hours", content: ["Mon - Sat: 9AM - 7PM", "Sunday: Closed"] },
   ];
 
-  if (isSubmitted) {
+  if (isSubmitted || state.succeeded) {
     return (
       <Layout>
         <section className="py-20 min-h-[80vh] flex items-center bg-background">
@@ -230,8 +210,8 @@ const Contact = () => {
                   {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                 </div>
 
-                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? (
+                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={state.submitting}>
+                  {state.submitting ? (
                     "Sending..."
                   ) : (
                     <>
