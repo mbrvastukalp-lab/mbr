@@ -50,16 +50,16 @@ const StructuredData = () => {
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "",
+            "streetAddress": "Vishnu Nagar, Chembur",
             "addressLocality": "Mumbai",
             "addressRegion": "Maharashtra",
-            "postalCode": "",
+            "postalCode": "400074",
             "addressCountry": "IN"
         },
         "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 19.0760,
-            "longitude": 72.8777
+            "latitude": 19.024776,
+            "longitude": 72.904753
         },
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",

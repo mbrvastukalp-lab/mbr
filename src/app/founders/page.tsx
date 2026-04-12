@@ -30,8 +30,8 @@ const founders = [
 ];
 
 export const metadata = {
-  title: 'Our Founders - MBR Vastukalp | Leadership & Vision',
-  description: 'Meet Mr. Mahendra Rajak and Er. Vikas Kumar, the visionaries leading MBR Vastukalp with over 30 years of combined experience in construction.',
+  title: 'Our Founders',
+  description: 'Meet Mr. Mahendra Rajak and Er. Vikas Kumar, the visionaries leading MBR Vastukalp. Over 30 years of excellence in construction, renovation and trust in Mumbai.',
 };
 
 export default function FoundersPage() {

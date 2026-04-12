@@ -186,8 +186,8 @@ const services = [
 ];
 
 export const metadata = {
-  title: 'Our Services - MBR Vastukalp | Construction, Renovation & Maintenance',
-  description: 'Explore our wide range of services including civil structure repair, demolition, electrical, plumbing, painting, HVAC, and more in Mumbai.',
+  title: 'Our Services',
+  description: 'Comprehensive construction and renovation services in Mumbai: Civil structure repair, demolition, electrical, plumbing, HVAC, painting, and carpentry. Expert contractors at MBR Vastukalp.',
 };
 
 export default function ServicesPage() {

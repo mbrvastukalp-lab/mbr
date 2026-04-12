@@ -24,9 +24,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'MBR Vastukalp - Construction, Renovation & Maintenance Services in Mumbai | 30+ Years Experience',
+  title: {
+    default: 'MBR Vastukalp | Construction & Renovation in Mumbai | 30+ Years Exp',
+    template: '%s | MBR Vastukalp - 30+ Years Experience'
+  },
   description: 'MBR Vastukalp offers expert construction, renovation, and maintenance services in Mumbai. With 30+ years of experience, we provide civil structure repair, electrical, plumbing, painting, HVAC, and more.',
-  keywords: 'MBR Vastukalp, construction services Mumbai, renovation Mumbai, civil construction, electrical services, plumbing services, painting services, HVAC services, building maintenance, Mumbai, Maharashtra, India',
+  keywords: 'MBR Vastukalp, construction services Mumbai, renovation Mumbai, civil construction, electrical services, plumbing services, painting services, HVAC services, building maintenance, Mumbai, Maharashtra, India, top construction company Mumbai, best renovation contractors',
   authors: [{ name: 'MBR Vastukalp' }],
   robots: 'index, follow',
   metadataBase: new URL('https://mbrvastukalp.com'),
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://mbrvastukalp.com',
-    title: 'MBR Vastukalp - Construction, Renovation & Maintenance Services in Mumbai',
+    title: 'MBR Vastukalp | Construction, Renovation & Maintenance in Mumbai',
     description: 'Expert construction and renovation services with 30+ years of experience. Quality assured, on-time delivery, licensed & insured professionals.',
     siteName: 'MBR Vastukalp',
     images: [{ url: '/logo.png' }],
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MBR Vastukalp - Construction Services in Mumbai',
+    title: 'MBR Vastukalp | Construction Services in Mumbai',
     description: 'Expert construction and renovation services with 30+ years of experience in Mumbai.',
     images: ['/logo.png'],
   },

@@ -17,8 +17,8 @@ const values = [
 ];
 
 export const metadata = {
-  title: 'About MBR Vastukalp - 30+ Years of Excellence in Construction',
-  description: 'Learn about MBR Vastukalp, a trusted name in Mumbai construction since 1996. Our story, values, and commitment to quality.',
+  title: 'About',
+  description: 'Learn about MBR Vastukalp, a trusted name in Mumbai civil construction, structural repairs, and renovation since 1996. Dedicated to quality and client focus.',
 };
 
 export default function AboutPage() {
