@@ -295,18 +295,8 @@ export const galleryAssets = [
     "caption": "Project 59"
   },
   {
-    "src": "/gallery/60.mp4",
-    "type": "video",
-    "caption": "Project 60"
-  },
-  {
     "src": "/gallery/61.webp",
     "type": "image",
     "caption": "Project 61"
   },
-  {
-    "src": "/gallery/62.mp4",
-    "type": "video",
-    "caption": "Project 62"
-  }
 ];
