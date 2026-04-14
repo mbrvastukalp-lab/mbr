@@ -2,18 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-const images = [
-  { src: "/gallery/1.jpg", caption: "Project 1" },
-  { src: "/gallery/2.jpg", caption: "Project 2" },
-  { src: "/gallery/3.jpg", caption: "Project 3" },
-  { src: "/gallery/4.jpg", caption: "Project 4" },
-  { src: "/gallery/5.jpg", caption: "Project 5" },
-  { src: "/gallery/6.jpg", caption: "Project 6" },
-  { src: "/gallery/7.jpg", caption: "Project 7" },
-  { src: "/gallery/8.jpg", caption: "Project 8" },
-  { src: "/gallery/9.jpg", caption: "Project 9" },
-];
+import { galleryAssets as images } from "./metadata";
 
 export default function GalleryPage() {
   const [selected, setSelected] = useState<number | null>(null);
@@ -35,25 +24,42 @@ export default function GalleryPage() {
         <p className="text-muted-foreground">A showcase of our recent projects and completed works.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {images.map((item, idx) => (
           <button
             key={idx}
             onClick={() => setSelected(idx)}
             className="group overflow-hidden rounded-2xl shadow-soft bg-card border border-border p-2 flex flex-col transition-all hover:shadow-strong"
-            aria-label={`Open image ${idx + 1}`}
+            aria-label={`Open ${item.type} ${idx + 1}`}
           >
-            <div className="relative w-full h-64 rounded-xl overflow-hidden">
-              <Image 
-                src={item.src} 
-                alt={item.caption} 
-                fill
-                className="object-cover transform group-hover:scale-105 transition-transform duration-500" 
-                loading="lazy"
-              />
+            <div className="relative w-full h-64 rounded-xl overflow-hidden bg-muted">
+              {item.type === 'video' ? (
+                <div className="w-full h-full relative">
+                  <video 
+                    src={item.src} 
+                    className="w-full h-full object-cover"
+                    muted
+                    loop
+                    playsInline
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                    <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur whitespace-nowrap flex items-center justify-center text-white">
+                      <span className="text-xl ml-1">▶</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Image 
+                  src={item.src} 
+                  alt={item.caption} 
+                  fill
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                  loading="lazy"
+                />
+              )}
             </div>
-            <div className="p-2 text-center">
-              <p className="text-sm font-medium text-foreground">{item.caption}</p>
+            <div className="p-2 text-center text-ellipsis overflow-hidden">
+              <p className="text-sm font-medium text-foreground truncate">{item.caption}</p>
             </div>
           </button>
         ))}
@@ -72,14 +78,23 @@ export default function GalleryPage() {
             >
               <span className="text-2xl">✕</span>
             </button>
-            <div className="relative w-full h-full">
-              <Image 
-                src={images[selected].src} 
-                alt={images[selected].caption} 
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="relative w-full h-full flex items-center justify-center">
+              {images[selected].type === 'video' ? (
+                <video 
+                  src={images[selected].src} 
+                  className="max-w-full max-h-full"
+                  controls
+                  autoPlay
+                />
+              ) : (
+                <Image 
+                  src={images[selected].src} 
+                  alt={images[selected].caption} 
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              )}
             </div>
             <p className="mt-4 text-white text-lg font-medium">{images[selected].caption}</p>
           </div>
